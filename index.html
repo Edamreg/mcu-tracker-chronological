@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCU Chrono-Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a1a"/>
+    <link rel="apple-touch-icon" href="images/icon-192x192.png">
+</head>
+<body>
+
+    <header class="toolbar">
+        <h1>MCU Chrono-Tracker</h1>
+        <div class="controls">
+            <input type="search" id="search-bar" placeholder="Search titles...">
+            <button id="theme-toggle">🌙</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="progress-section">
+            <div class="progress-stats">
+                <span id="watched-counter">Watched: 0/334</span>
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="runtime-stats">
+                <span id="time-watched">Time Watched: 0h 0m</span>
+                <span id="time-remaining">Time Remaining: 0h 0m</span>
+            </div>
+        </section>
+
+        <section class="filter-controls">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="Movie">Movies</button>
+            <button class="filter-btn" data-filter="TV Episode">TV Shows</button>
+            <button class="filter-btn" data-filter="Short,Special">Shorts & Specials</button>
+            <a href="#" id="view-watched-btn">View Watched</a>
+            <a href="#" id="view-skipped-btn">View Skipped</a>
+        </section>
+
+        <ul id="mcu-list">
+            </ul>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

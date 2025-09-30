@@ -1,0 +1,21 @@
+{
+    "name": "MCU Chrono-Tracker",
+    "short_name": "MCU Tracker",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#e62429",
+    "description": "A PWA to track your progress through the MCU in chronological order.",
+    "icons": [
+        {
+            "src": "images/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
