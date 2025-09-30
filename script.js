@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- DATA ---
-    // The complete MCU chronological data parsed from the document
+    // The complete and corrected 334-item MCU chronological data
     const mcuData = [
         {"id":1,"title":"Captain America: The First Avenger","parentSeries":"Phase One","type":"Movie","releaseDate":"2011-07-22","runtime":124,"phase":"Phase One"},
         {"id":2,"title":"Agent Carter (One-Shot)","parentSeries":"Marvel One-Shots","type":"Short","releaseDate":"2013-09-03","runtime":15,"phase":"Phase One"},
@@ -313,15 +313,15 @@ document.addEventListener('DOMContentLoaded', () => {
         {"id":309,"title":"What If...? S02E07: \"What If... Hela Found the Ten Rings?\"","parentSeries":"What If...?","type":"TV Episode","releaseDate":"2023-12-28","runtime":30,"phase":"Multiverse Saga"},
         {"id":310,"title":"What If...? S02E08: \"What If... the Avengers Assembled in 1602?\"","parentSeries":"What If...?","type":"TV Episode","releaseDate":"2023-12-29","runtime":30,"phase":"Multiverse Saga"},
         {"id":311,"title":"What If...? S02E09: \"What If... Strange Supreme Intervened?\"","parentSeries":"What If...?","type":"TV Episode","releaseDate":"2023-12-30","runtime":30,"phase":"Multiverse Saga"},
-        {"id":312,"title":"Deadpool & Wolverine","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2024-07-26","runtime":127,"phase":"Multiverse Saga"},
+        {"id":312,"title":"Deadpool & Wolverine","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2024-07-26","runtime":127,"phase":"Multiverse Saga"}
     ];
 
     // --- STATE MANAGEMENT ---
     let state = {
         items: [],
-        filter: 'all', // 'all', 'Movie', 'TV Episode', 'Short,Special'
+        filter: 'all',
         searchTerm: '',
-        view: 'main' // 'main', 'watched', 'skipped'
+        view: 'main'
     };
 
     const ui = {
@@ -342,7 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
             id: item.id,
             watched: item.watched,
             skipped: item.skipped
-            // watchedTimestamp is removed
         }));
         localStorage.setItem('mcuTrackerState', JSON.stringify(dataToSave));
         localStorage.setItem('mcuTheme', document.body.classList.contains('dark-mode'));
@@ -370,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateProgress() {
-        const itemsForProgress = mcuData.filter(item => !item.skipped);
+        const itemsForProgress = mcuData.filter(item => !state.items.find(s => s.id === item.id)?.skipped);
         const totalCount = itemsForProgress.length;
         const watchedCount = state.items.filter(item => item.watched && !item.skipped).length;
 
@@ -382,15 +381,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let watchedMinutes = 0;
         let remainingMinutes = 0;
 
-        const filteredItems = getFilteredItems();
-
-        filteredItems.forEach(item => {
-            if (!item.skipped) {
-                if (item.watched) {
-                    watchedMinutes += item.runtime;
-                } else {
-                    remainingMinutes += item.runtime;
-                }
+        const currentFilterTypes = state.filter === 'all' ? null : state.filter.split(',');
+        const relevantItems = state.items.filter(item => !item.skipped && (!currentFilterTypes || currentFilterTypes.includes(item.type)));
+        
+        relevantItems.forEach(item => {
+            if (item.watched) {
+                watchedMinutes += item.runtime;
+            } else {
+                remainingMinutes += item.runtime;
             }
         });
 
@@ -408,17 +406,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderList() {
-        ui.list.innerHTML = ''; // Clear existing list
+        ui.list.innerHTML = '';
         const itemsToRender = getFilteredItems();
 
         let itemsToShow;
         if (state.view === 'main') {
-            // NEW: Show only unwatched and non-skipped items.
             itemsToShow = itemsToRender.filter(item => !item.skipped && !item.watched);
         } else if (state.view === 'watched') {
-            // NEW: Show all watched and non-skipped items.
             itemsToShow = itemsToRender.filter(item => item.watched && !item.skipped);
-        } else { // 'skipped' view
+        } else {
             itemsToShow = itemsToRender.filter(item => item.skipped);
         }
         
@@ -462,14 +458,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (target.type === 'checkbox') {
             item.watched = target.checked;
-            // The watchedTimestamp is no longer needed
             saveState();
-            // Keep delay for a smoother hide animation
             setTimeout(renderList, 300);
         }
 
         if (target.classList.contains('skip-btn')) {
-            item.skipped = !item.skipped; // Toggle skipped state
+            item.skipped = !item.skipped;
             saveState();
             renderList();
         }
@@ -510,7 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ui.filterBtns.forEach(b => b.classList.remove('active'));
         renderList();
     });
-
 
     // --- INITIALIZATION ---
     loadState();
