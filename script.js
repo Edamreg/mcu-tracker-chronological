@@ -341,8 +341,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataToSave = state.items.map(item => ({
             id: item.id,
             watched: item.watched,
-            skipped: item.skipped,
-            watchedTimestamp: item.watchedTimestamp
+            skipped: item.skipped
+            // watchedTimestamp is removed
         }));
         localStorage.setItem('mcuTrackerState', JSON.stringify(dataToSave));
         localStorage.setItem('mcuTheme', document.body.classList.contains('dark-mode'));
@@ -411,18 +411,14 @@ document.addEventListener('DOMContentLoaded', () => {
         ui.list.innerHTML = ''; // Clear existing list
         const itemsToRender = getFilteredItems();
 
-        const recentlyWatched = state.items
-            .filter(item => item.watched && !item.skipped)
-            .sort((a, b) => b.watchedTimestamp - a.watchedTimestamp)
-            .slice(0, 5)
-            .map(item => item.id);
-
         let itemsToShow;
         if (state.view === 'main') {
-            itemsToShow = itemsToRender.filter(item => !item.skipped && (!item.watched || recentlyWatched.includes(item.id)));
+            // NEW: Show only unwatched and non-skipped items.
+            itemsToShow = itemsToRender.filter(item => !item.skipped && !item.watched);
         } else if (state.view === 'watched') {
-            itemsToShow = itemsToRender.filter(item => item.watched && !item.skipped && !recentlyWatched.includes(item.id));
-        } else { // skipped
+            // NEW: Show all watched and non-skipped items.
+            itemsToShow = itemsToRender.filter(item => item.watched && !item.skipped);
+        } else { // 'skipped' view
             itemsToShow = itemsToRender.filter(item => item.skipped);
         }
         
@@ -466,9 +462,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (target.type === 'checkbox') {
             item.watched = target.checked;
-            item.watchedTimestamp = target.checked ? Date.now() : null;
+            // The watchedTimestamp is no longer needed
             saveState();
-            // Add a small delay for the check animation before hiding
+            // Keep delay for a smoother hide animation
             setTimeout(renderList, 300);
         }
 
