@@ -104,7 +104,6 @@ main {
 }
 body.dark-mode .runtime-stats { color: #aaa; }
 
-
 .filter-controls {
     display: flex;
     flex-wrap: wrap;
@@ -140,8 +139,52 @@ body.dark-mode .runtime-stats { color: #aaa; }
     margin: 0;
 }
 
-.mcu-item {
+/* New Styles for Collapsible Sections */
+.phase-section {
+    border: none;
+    padding: 0;
+    margin: 0 0 15px 0;
     background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    overflow: hidden;
+}
+
+.phase-summary {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+.phase-section[open] > .phase-summary {
+    border-bottom: 1px solid var(--border-color);
+}
+.phase-summary::-webkit-details-marker {
+    display: none;
+}
+.phase-summary::before {
+    content: '▶';
+    margin-right: 15px;
+    font-size: 0.8em;
+    transition: transform 0.2s;
+}
+.phase-section[open] > .phase-summary::before {
+    transform: rotate(90deg);
+}
+
+.phase-content {
+    padding: 10px;
+    list-style: none;
+    margin: 0;
+}
+
+/* Styles for List Items */
+.mcu-item {
+    background-color: var(--bg-color); /* Slightly different background */
     border-radius: 8px;
     margin-bottom: 10px;
     padding: 15px;
@@ -151,12 +194,6 @@ body.dark-mode .runtime-stats { color: #aaa; }
     border-left: 5px solid;
     box-shadow: 0 1px 3px var(--shadow-color);
     transition: opacity 0.5s, transform 0.5s;
-}
-
-.mcu-item.hidden {
-    opacity: 0;
-    transform: scale(0.95);
-    display: none;
 }
 
 .mcu-item.type-Movie { border-color: var(--type-movie); }
@@ -169,20 +206,23 @@ body.dark-mode .runtime-stats { color: #aaa; }
     flex-shrink: 0;
 }
 
-.item-details {
-    flex-grow: 1;
-}
+.item-details { flex-grow: 1; }
+.item-details .title { font-weight: bold; display: block; }
 
-.item-details .title {
-    font-weight: bold;
-    display: block;
-}
-
-.item-details .meta {
+/* New Styles for Meta Info Lines */
+.item-details .meta-line-1, .item-details .meta-line-2 {
     font-size: 0.85em;
     color: #777;
+    display: block;
 }
-body.dark-mode .item-details .meta { color: #bbb; }
+.item-details .meta-line-2 {
+    margin-top: 4px;
+}
+body.dark-mode .item-details .meta-line-1, 
+body.dark-mode .item-details .meta-line-2 { 
+    color: #bbb; 
+}
+
 
 .item-actions button {
     background: none;
