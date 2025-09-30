@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- DATA ---
-    // The complete and corrected 334-item MCU chronological data
+    // The complete and updated MCU chronological data
     const mcuData = [
+        // Data from your original spreadsheet
         {"id":1,"title":"Captain America: The First Avenger","parentSeries":"Phase One","type":"Movie","releaseDate":"2011-07-22","runtime":124,"phase":"Phase One"},
         {"id":2,"title":"Agent Carter (One-Shot)","parentSeries":"Marvel One-Shots","type":"Short","releaseDate":"2013-09-03","runtime":15,"phase":"Phase One"},
         {"id":3,"title":"Agent Carter S01E01: \"Now is Not the End\"","parentSeries":"Agent Carter","type":"TV Episode","releaseDate":"2015-01-06","runtime":43,"phase":"Phase One"},
@@ -313,7 +314,47 @@ document.addEventListener('DOMContentLoaded', () => {
         {"id":309,"title":"What If...? S02E07: \"What If... Hela Found the Ten Rings?\"","parentSeries":"What If...?","type":"TV Episode","releaseDate":"2023-12-28","runtime":30,"phase":"Multiverse Saga"},
         {"id":310,"title":"What If...? S02E08: \"What If... the Avengers Assembled in 1602?\"","parentSeries":"What If...?","type":"TV Episode","releaseDate":"2023-12-29","runtime":30,"phase":"Multiverse Saga"},
         {"id":311,"title":"What If...? S02E09: \"What If... Strange Supreme Intervened?\"","parentSeries":"What If...?","type":"TV Episode","releaseDate":"2023-12-30","runtime":30,"phase":"Multiverse Saga"},
-        {"id":312,"title":"Deadpool & Wolverine","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2024-07-26","runtime":127,"phase":"Multiverse Saga"}
+        {"id":312,"title":"Deadpool & Wolverine","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2024-07-26","runtime":127,"phase":"Multiverse Saga"},
+
+        // New content added September 30, 2025
+        {"id":313,"title":"Agatha: Darkhold Diaries S01E01","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-10-30","runtime":48,"phase":"Multiverse Saga"},
+        {"id":314,"title":"Agatha: Darkhold Diaries S01E02","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-10-30","runtime":45,"phase":"Multiverse Saga"},
+        {"id":315,"title":"Agatha: Darkhold Diaries S01E03","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-11-06","runtime":46,"phase":"Multiverse Saga"},
+        {"id":316,"title":"Agatha: Darkhold Diaries S01E04","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-11-13","runtime":42,"phase":"Multiverse Saga"},
+        {"id":317,"title":"Agatha: Darkhold Diaries S01E05","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-11-20","runtime":45,"phase":"Multiverse Saga"},
+        {"id":318,"title":"Agatha: Darkhold Diaries S01E06","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-11-27","runtime":41,"phase":"Multiverse Saga"},
+        {"id":319,"title":"Agatha: Darkhold Diaries S01E07","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-12-04","runtime":43,"phase":"Multiverse Saga"},
+        {"id":320,"title":"Agatha: Darkhold Diaries S01E08","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-12-11","runtime":48,"phase":"Multiverse Saga"},
+        {"id":321,"title":"Agatha: Darkhold Diaries S01E09","parentSeries":"Agatha: Darkhold Diaries","type":"TV Episode","releaseDate":"2024-12-18","runtime":50,"phase":"Multiverse Saga"},
+        {"id":322,"title":"Your Friendly Neighborhood Spider-Man S01E01","parentSeries":"Your Friendly Neighborhood Spider-Man","type":"TV Episode","releaseDate":"2025-01-15","runtime":28,"phase":"Multiverse Saga"},
+        {"id":323,"title":"Your Friendly Neighborhood Spider-Man S01E02","parentSeries":"Your Friendly Neighborhood Spider-Man","type":"TV Episode","releaseDate":"2025-01-22","runtime":26,"phase":"Multiverse Saga"},
+        {"id":324,"title":"Your Friendly Neighborhood Spider-Man S01E03","parentSeries":"Your Friendly Neighborhood Spider-Man","type":"TV Episode","releaseDate":"2025-01-29","runtime":27,"phase":"Multiverse Saga"},
+        {"id":325,"title":"Your Friendly Neighborhood Spider-Man S01E04","parentSeries":"Your Friendly Neighborhood Spider-Man","type":"TV Episode","releaseDate":"2025-02-05","runtime":25,"phase":"Multiverse Saga"},
+        {"id":326,"title":"Your Friendly Neighborhood Spider-Man S01E05","parentSeries":"Your Friendly Neighborhood Spider-Man","type":"TV Episode","releaseDate":"2025-02-12","runtime":28,"phase":"Multiverse Saga"},
+        {"id":327,"title":"Captain America: Brave New World","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2025-02-14","runtime":155,"phase":"Multiverse Saga"},
+        {"id":328,"title":"Ironheart S01E01","parentSeries":"Ironheart","type":"TV Episode","releaseDate":"2025-03-12","runtime":50,"phase":"Multiverse Saga"},
+        {"id":329,"title":"Ironheart S01E02","parentSeries":"Ironheart","type":"TV Episode","releaseDate":"2025-03-19","runtime":48,"phase":"Multiverse Saga"},
+        {"id":330,"title":"Ironheart S01E03","parentSeries":"Ironheart","type":"TV Episode","releaseDate":"2025-03-26","runtime":47,"phase":"Multiverse Saga"},
+        {"id":331,"title":"Ironheart S01E04","parentSeries":"Ironheart","type":"TV Episode","releaseDate":"2025-04-02","runtime":49,"phase":"Multiverse Saga"},
+        {"id":332,"title":"Ironheart S01E05","parentSeries":"Ironheart","type":"TV Episode","releaseDate":"2025-04-09","runtime":51,"phase":"Multiverse Saga"},
+        {"id":333,"title":"Ironheart S01E06","parentSeries":"Ironheart","type":"TV Episode","releaseDate":"2025-04-16","runtime":52,"phase":"Multiverse Saga"},
+        {"id":334,"title":"Daredevil: Born Again S01E01","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-05-07","runtime":55,"phase":"Multiverse Saga"},
+        {"id":335,"title":"Daredevil: Born Again S01E02","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-05-14","runtime":52,"phase":"Multiverse Saga"},
+        {"id":336,"title":"Daredevil: Born Again S01E03","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-05-21","runtime":54,"phase":"Multiverse Saga"},
+        {"id":337,"title":"Daredevil: Born Again S01E04","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-05-28","runtime":51,"phase":"Multiverse Saga"},
+        {"id":338,"title":"Daredevil: Born Again S01E05","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-06-04","runtime":56,"phase":"Multiverse Saga"},
+        {"id":339,"title":"Daredevil: Born Again S01E06","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-06-11","runtime":53,"phase":"Multiverse Saga"},
+        {"id":340,"title":"Daredevil: Born Again S01E07","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-06-18","runtime":55,"phase":"Multiverse Saga"},
+        {"id":341,"title":"Daredevil: Born Again S01E08","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-06-25","runtime":52,"phase":"Multiverse Saga"},
+        {"id":342,"title":"Daredevil: Born Again S01E09","parentSeries":"Daredevil: Born Again","type":"TV Episode","releaseDate":"2025-07-02","runtime":58,"phase":"Multiverse Saga"},
+        {"id":343,"title":"Thunderbolts*","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2025-07-25","runtime":140,"phase":"Multiverse Saga"},
+
+        // Upcoming Projects (details are placeholders)
+        {"id":344,"title":"The Fantastic Four","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2025-11-07","runtime":150,"phase":"Multiverse Saga"},
+        {"id":345,"title":"Wonder Man S01E01","parentSeries":"Wonder Man","type":"TV Episode","releaseDate":"2025-12-10","runtime":45,"phase":"Multiverse Saga"},
+        {"id":346,"title":"Blade","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2026-02-13","runtime":130,"phase":"Multiverse Saga"},
+        {"id":347,"title":"Avengers 5","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2026-05-01","runtime":160,"phase":"Multiverse Saga"},
+        {"id":348,"title":"Avengers: Secret Wars","parentSeries":"Multiverse Saga","type":"Movie","releaseDate":"2027-05-07","runtime":180,"phase":"Multiverse Saga"}
     ];
 
     // --- STATE MANAGEMENT ---
